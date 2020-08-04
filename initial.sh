@@ -1,3 +1,4 @@
+ln -sf python-kdk-vim .vim  
 git submodule add -f https://github.com/gmarik/Vundle.vim.git bundle/Vundle.vim
 vim -c PluginInstall
 cd ./bundle/YouCompleteMe && ./install.py --clang-completer
