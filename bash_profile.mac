@@ -1,0 +1,17 @@
+if [ -f ~/.bashrc ]; then
+	    source ~/.bashrc
+	    fi
+#. /usr/local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh
+
+# export
+export PATH="/usr/local/opt/ruby/bin:$PATH"
+export LDFLAGS=-L/usr/local/opt/ruby/lib
+export PKG_CONFIG_PATH=/usr/local/opt/ruby/lib/pkgconfig
+export CPPFLAGS=-I/usr/local/opt/ruby/include
+export PATH="/usr/local/opt/ruby/bin:$PATH"
+export PATH="/usr/local/sbin:$PATH"
+
+# alias
+alias py='python3'
+alias vi='vim -p -n -N -i none -u ~/.vimrc'
+alias phpvi='vim -p -n -N -i none -u ~/.vimrc-php'

@@ -1,0 +1,530 @@
+" Copy from https://raw.githubusercontent.com/j0z0/vim-config/master/vimrc
+"vundle
+set nocompatible
+filetype off
+
+" traditonal chinese fileencoding
+set fileencodings=utf-8,ucs-bom,big5,cp950 
+set termencoding=utf-8
+set encoding=utf-8
+set confirm
+set showcmd
+syntax on
+
+" color 
+set t_Co=256
+"colorscheme elda
+"colorscheme apprentice
+"colorscheme cduan
+"colorscheme nerv-ous
+"colorscheme SlateDark
+"colorscheme xoria256
+"colorscheme torte
+"colorscheme ir_black
+"colorscheme grb256
+colorscheme railscasts
+"colorscheme solarized
+
+" Unmap the arrow keys
+no <Down> <Nop>
+no <Left> <Nop>
+no <Up> <Nop>
+no <Right> <Nop>
+ino <Down> <Nop>
+ino <Left> <Nop>
+ino <Up> <Nop>
+ino <Right> <Nop>
+vno <Down> <Nop>
+vno <Left> <Nop>
+vno <Up> <Nop>
+vno <Right> <Nop>
+
+" 為搜尋到的字加上高亮標示
+set hlsearch
+set ignorecase
+set smartcase
+set incsearch
+
+" vim 自動換行
+" set wrap
+
+" 縮排
+" Turn on auto-indent
+"       :set autoindent 
+" Turn on intelligent auto-indent
+"       :set smartindent 
+" Turn on intelligent & C auto-indent
+"       :set cindent 
+" Defines 4 spaces as indent size
+"       :set shiftwidth=4 
+" hitctrl-t, ctrl-d Indent/un-indent in insert mode
+" Indent
+" >>
+" Un-indent 
+" << 
+"set smartindent
+set cindent
+
+" CTRL-P 相關檔案、tags搜尋
+" 選取關鑑字後使用ctrl+p 會於資料夾中搜尋tags、檔案
+
+" hit enter to cancel searched highlight 按《ENTER》取消高亮標示
+noremap <CR> :nohlsearch<CR>
+highlight Search cterm=underline
+
+" HIT F2 toggle NERDTREE
+nnoremap <silent> <F2> :NERDTreeToggle<CR><CR>k
+
+" HIT ,s on the word to replace the word
+nnoremap <Leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
+
+" 按F8為光標所的字進行全頁搜尋，並加上《》包圍該字
+" nnoremap <expr> <F8> ':%s/\<'.expand('<cword>').'\>/<&>/g<CR>' 
+
+" select ALL
+map <C-A> ggVG
+
+" 按兩下; 進入行尾並以進入下一行繼續編輯
+"inoremap ;; <ESC>$i<RIGHT>;
+inoremap ;; <ESC>$i<RIGHT><CR>
+
+" Insert mode 打 CTRL＋a 文件全選
+inoremap <C-A> <ESC>ggVG
+
+" yahoo線上字典(已無法使用）
+" (Project link) http://code.google.com/p/ydict/
+" normal mode 打K（大寫）或CTRL+k
+" Insert mode CTRL+k 
+"set keywordprg=~/.vim/ydict
+"inoremap <C-K> <ESC>K
+"map <C-K> K
+
+" sdcv字典 按K會自動用sdcv查詢資料
+set keywordprg=sdcv\ -u\ 懶蟲簡明英漢詞典
+
+
+" 為當前光標所在之行加入底線加強提示
+set cursorline
+
+" 顯示行數
+set nu
+set relativenumber
+" 顯示狀態列
+set laststatus=2"
+
+
+" <<<折疊代碼>>>
+" 設定參數：
+" manual //手工定義
+" indent //用縮進表示
+" expr //用表達式
+" syntax //用語法高亮
+" diff //對沒有更改的文本進行折疊
+" marker //用標志折疊
+"
+" 折疊處輸入命令說明：
+" zc 折疊
+" zC 對所在范圍內所有嵌套的折疊點進行折疊
+" zo 展開折疊
+" zO 對所在范圍內所有嵌套的折疊點進行展開
+" [z 到當前打開的折疊的開始處
+" ]z 到當前打開的折疊的末尾處
+" zj 向下移動．到達下一個折疊的開始處．關閉的折疊也被計入
+" zk 向上移動．到前一折疊處．關閉的折疊也被計入
+"
+" marker 折疊方式說明：
+" default marker is  和 
+" zf 創建折疊，
+"    zf56G ，建立當前行起到56行的代碼折疊
+"    10zf 10zf+ 10zfj ，建立當前行起到後10行的代碼折疊
+"    10zf- zf10k ，建立當前行起到之前10行的代碼折疊
+"    在括號處 zf% ，建立當前行起到對應的匹配的括號上去（ (),{},[],<>等 ）
+" zd 刪除在光標下的折疊．ONLY FOR "foldmethod" set "manual" OR "marker"
+" zD 循環刪除在光標下的折疊，嵌套刪除折疊．ONLY FOR "foldmethod" set "manual" OR "marker"
+" zE 除去窗口裡"所有"的折疊．ONLY FOR "foldmethod" set "manual" OR "marker"
+"set foldmethod=manual
+"set foldmethod=indent
+"set foldmethod=expr
+"set foldmethod=syntax
+"set foldmethod=diff
+set foldmethod=marker
+
+" 使用模板
+" 新增模版以副檔案為檔名置於templates資料夾中
+au BufNewFile * :silent! exec ":0r ".$HOME."/.vim/templates/".&ft
+
+" 其他常用指令介紹
+" <normal mode>
+"    u : undo , back to last change
+"    U : undo , not actually a true undo , it back to last change and create a new step
+"    CTRL+R : redo a previously undone change
+"    . : repeat a previous change
+"    <C-U> 向上翻半頁
+"    <C-D> 向下翻半頁
+"    <C-B> 回上一頁
+"    <C-F> 至下一頁
+"    z. : 光標所在行置中
+"    zt : 光標所在行置頂
+"    zb : 光標所在行置底
+"    shift+h : 光標移至本頁頁頂
+"    shift+m : 光標移至本頁頁中
+"    shift+l : 光標移至本頁頁底
+" 
+" <input mode>
+" zencoding使用
+" ex1: html:xss>div#header+div#container>ul>li.class{<ctrl+y+,> OR <CTRL+E>}
+" ex2: 
+" ----------------------
+"      test1
+"      test2
+"      test3
+" ----------------------
+"      在normal
+"      mode中使用SHIFT＋V選取三行，按《CTRL＋Y＋,》或《CTRL＋E》在命令欄輸入
+"      ul>li*<enter>
+"      即可變成
+" ----------------------
+"      <ul>
+"        <li>test1</li>
+"        <li>test2</li>
+"        <li>test3</li>
+"      </ul>
+" ----------------------
+" ex3:標籤內選擇<CTRL+y>d
+" ex4:標籤外選擇<CTRL+y>D
+" ex5:轉到下一個編輯點<CTRL+Y>n
+" ex6:轉到上一個編輯點<CTRL+Y>N
+" ex7:更新IMG TAG圖片的大小（圖必須在本地VIM能讀得到的地方）{<CTRY+Y>i}
+" ----------------------
+"     <img src="foo.png">光標移到IMG TAG然後按<CTRY+Y>i
+"     <img src="foo.png" height="48" width="32">
+" 
+" ex8:多行合併，光標選擇要合併的行數後按《SHIFT＋J》即可合為一行
+"
+" ex9:刪除標籤{<c-y>k}：
+" ----------------------
+"      <div class="foo">
+"      <a>光標在這</a>
+"      </div>
+"      按下 <c-y>k 就變成
+"      <div class="foo"></div>
+" ----------------------
+"
+"  ex10:分割組合標籤{<c-y>j}
+" ----------------------
+"      <div class="foo">
+"      <a>光標在這</a>
+"      </div>
+"      按下 <c-y>j 就變成
+"      <div class="foo"/>
+"      再按下 <c-y>j 就變成
+"      <div class="foo"></div>
+" ----------------------
+"       
+" ex11:注解{<CTRY+Y>/}
+" ----------------------
+"      <div>
+"        hello world
+"      </div>
+"     光標移至此塊代碼，按<CTRY+Y>/
+"      <!--<div>
+"        hello world
+"      </div>-->
+" ----------------------
+"
+" ex12:自動給網址加上連結（LINK）的TAG{<CTRL+Y>a}
+"      不支援BIG5<title>
+" ----------------------
+"     光標移動到網址上http://tw.yahoo.com按下<ctrl+y>a
+"     <a href="http://tw.yahoo.com">Yahoo!奇摩</a>
+" ----------------------
+"
+" ex13:給網址添加注解文本{<ctrl+y><shift+a>}
+" ----------------------
+"     光標移動到網址上http://github.com按下<ctrl+y><shift+a>
+"     <blockquote class="quote">
+"          <a href="http://github.com/">Secure source code hosting and
+"          collaborative development - GitHub</a>
+"           How does it work? Get up and running in seconds by forking a
+"           project, pushing an existing repository...
+"           <cite>http://github.com/</cite>
+"     </blockquote>"
+" ----------------------
+"     
+" ex14:以BINARY MODE開啟檔案
+"     :%!xxd      以二進制模式開啟
+"     :%!xxd -r   返回原檔案模式
+"
+
+" Buffer switch
+" :bn 跳下一個buffer
+" :bp 跳上一個buffer
+" :b n 跳行第n個buffer
+" :bd 關掉目前buffer
+" 開檔 vi -b a b 可同時打開a,b兩檔
+" bufdo! %s/abc/ABC/g 可同時把buffer裡的a,b檔案內容同時更動
+" bufdo!w! 可同時把buffer裡的檔案儲存
+
+" Mappings to access buffers (don't use "\p" because a
+" delay before pressing "p" would accidentally paste).
+" ,l       : list buffers
+" ,b ,f ,g : go back/forward/last-used
+" ,1 ,2 ,3 : go to buffer 1/2/3 etc
+nnoremap <Leader>l :ls<CR>
+nnoremap <Leader>b :bp<CR>
+nnoremap <Leader>d :bd<CR>
+nnoremap <Leader>f :bn<CR>
+nnoremap <Leader>g :e#<CR>
+nnoremap <Leader>1 :1b<CR>
+nnoremap <Leader>2 :2b<CR>
+nnoremap <Leader>3 :3b<CR>
+nnoremap <Leader>4 :4b<CR>
+nnoremap <Leader>5 :5b<CR>
+nnoremap <Leader>6 :6b<CR>
+nnoremap <Leader>7 :7b<CR>
+nnoremap <Leader>8 :8b<CR>
+nnoremap <Leader>9 :9b<CR>
+nnoremap <Leader>0 :10b<CR>
+" It's useful to show the buffer number in the status line.
+"set laststatus=2 statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
+set ttimeoutlen=50
+" 光標移動模式切換 <F5>
+" When ON(normal mode):
+" u : 光標向上移動半頁
+" d : 光標向下移動半頁
+" k : 光標所在行向上移動
+" j : 光標所在行向下移動
+
+
+" Vundle plugins Setting
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'VundleVim/Vundle.vim'
+"git interface
+Plugin 'tpope/vim-fugitive'
+"filesystem
+Plugin 'scrooloose/nerdtree'
+Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'kien/ctrlp.vim' 
+
+" EasyMotion
+Plugin 'easymotion/vim-easymotion'
+
+" Powerline
+Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+
+"Taglist
+Plugin 'yegappan/taglist'
+
+"html
+"  isnowfy only compatible with python not python3
+" Plugin 'isnowfy/python-vim-instant-markdown'
+Plugin 'jtratner/vim-flavored-markdown'
+Plugin 'suan/vim-instant-markdown'
+Plugin 'nelstrom/vim-markdown-preview'
+"python sytax checker
+Plugin 'nvie/vim-flake8'
+Plugin 'vim-scripts/Pydiction'
+Plugin 'vim-scripts/indentpython.vim'
+Plugin 'scrooloose/syntastic'
+
+"auto-completion stuff
+"Plugin 'klen/python-mode'
+Plugin 'Valloric/YouCompleteMe'
+"Plugin 'python-rope/ropevim'
+Plugin 'klen/python-mode', { 'for': ['python'] }
+"Plugin 'davidhalter/jedi-vim'
+Plugin 'ervandew/supertab'
+""code folding
+Plugin 'tmhedberg/SimpylFold'
+
+"Colors!!!
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'jnurmine/Zenburn'
+
+call vundle#end()
+
+filetype plugin indent on    " enables filetype detection
+let g:SimpylFold_docstring_preview = 1
+
+"autocomplete
+let g:ycm_autoclose_preview_window_after_completion=1
+
+"custom keys
+let mapleader=","
+map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+"
+call togglebg#map("<F5>")
+"colorscheme zenburn
+"set guifont=Monaco:h14
+
+let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
+
+"I don't like swap files
+set noswapfile
+
+"turn on numbering
+set nu
+
+"python with virtualenv support
+py3 << EOF
+import os.path
+import sys
+import vim
+if 'VIRTUA_ENV' in os.environ:
+  project_base_dir = os.environ['VIRTUAL_ENV']
+  sys.path.insert(0, project_base_dir)
+  activate_this = os.path.join(project_base_dir,'bin/activate_this.py')
+  execfile(activate_this, dict(__file__=activate_this))
+EOF
+
+"it would be nice to set tag files by the active virtualenv here
+":set tags=~/mytags "tags for ctags and taglist
+"omnicomplete
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+
+"------------Start Python PEP 8 stuff----------------
+" Number of spaces that a pre-existing tab is equal to.
+au BufRead,BufNewFile *py,*pyw,*.c,*.h set tabstop=4
+
+"spaces for indents
+au BufRead,BufNewFile *.py,*pyw set shiftwidth=4
+au BufRead,BufNewFile *.py,*.pyw set expandtab
+au BufRead,BufNewFile *.py set softtabstop=4
+
+" Use the below highlight group when displaying bad whitespace is desired.
+highlight BadWhitespace ctermbg=red guibg=red
+
+" Display tabs at the beginning of a line in Python mode as bad.
+au BufRead,BufNewFile *.py,*.pyw match BadWhitespace /^\t\+/
+" Make trailing whitespace be flagged as bad.
+au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+
+" Wrap text after a certain number of characters
+au BufRead,BufNewFile *.py,*.pyw, set textwidth=100
+
+" Use UNIX (\n) line endings.
+au BufNewFile *.py,*.pyw,*.c,*.h set fileformat=unix
+
+" Set the default file encoding to UTF-8:
+set encoding=utf-8
+
+" For full syntax highlighting:
+let python_highlight_all=1
+syntax on
+
+" Keep indentation level from previous line:
+autocmd FileType python set autoindent
+
+" make backspaces more powerfull
+set backspace=indent,eol,start
+
+
+"Folding based on indentation:
+autocmd FileType python set foldmethod=indent
+"use space to open folds
+nnoremap <space> za 
+"----------Stop python PEP 8 stuff--------------
+
+"js stuff"
+autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
+
+let Tlist_Auto_Highlight_Tag=1
+let Tlist_Auto_Open=1
+let Tlist_Auto_Update=1
+let Tlist_Display_Tag_Scope=1
+let Tlist_Exit_OnlyWindow=1
+let Tlist_Enable_Dold_Column=1
+let Tlist_File_Fold_Auto_Close=1
+let Tlist_Show_One_File=1
+let Tlist_Use_Right_Window=1
+let Tlist_Use_SingleClick=1
+nnoremap <silent> <F8> :TlistToggle<CR>
+
+"ropevim
+let ropevim_vim_completion=1
+let ropevim_extended_complete=1
+
+
+filetype plugin on
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+autocmd FileType javascrīpt set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+autocmd FileType c set omnifunc=ccomplete#Complete
+
+let g:pydiction_location='~/.vim/bundle/Pydiction/complete-dict'
+set autoindent
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set number
+
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+
+"split navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+
+" fast saves ,w
+nmap <leader>w :w!<cr>
+" fast quit ,q
+nmap <Leader>q :q!<CR>
+
+" easy escaping to normal mode
+imap jj <C-[>
+
+" Auto change directory to match current file ,cd
+nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
+
+" easier window navigation
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-l> <C-w>l
+nmap sv <C-w>n
+nmap vs <C-w>v
+
+
+" Load the current buffer in Chrome (for macos)
+nmap ,c :!open -a Google\ Chrome<cr> 
+" Load the current buffer in firefox(for macos)
+nmap ,f :!open -a firefox<cr> 
+
+" easy motion stuff
+let g:EasyMotion_smartcase = 1
+let g:EasyMotion_leader_key = '<Leader>'
+"let g:EasyMotion_startofline = 0 "keep cursor colum when JK motion
+map <Leader><Leader> <Plug>(easymotion-prefix)
+map <Leader><Leader>h <Plug>(easymotion-linebackward)
+map <Leader><Leader>j <Plug>(easymotion-j)
+map <Leader><Leader>k <Plug>(easymotion-k)
+map <Leader><Leader>l <Plug>(easymotion-lineforward)
+map <Leader><Leader>. <Plug>(easymotion-repeat)
+map <Leader><Leader>r :AirlineRefresh<CR>
+imap <Leader><Leader>h <C-[><Plug>(easymotion-linebackward)
+imap <Leader><Leader>j <C-[><Plug>(easymotion-j)
+imap <Leader><Leader>k <C-[><Plug>(easymotion-k)
+imap <Leader><Leader>l <C-[><Plug>(easymotion-lineforward)
+
+" Window Size change
+nmap wk :resize +3<CR>
+nmap wj :resize -3<CR>
+nmap wh :vertical resize -3<CR>
+nmap wl :vertical resize +3<CR>
+nmap wK <C-w>K
+nmap wJ <C-w>J
+nmap wH <C-w>H
+nmap wL <C-w>L
+nmap wo :only<CR>
+
+set clipboard=unnamed
+
+nmap <Leader><Leader>r :! clear;python3 % <CR>
