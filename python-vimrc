@@ -527,4 +527,4 @@ nmap wo :only<CR>
 
 set clipboard=unnamed
 
-nmap <Leader><Leader>r :! clear;python3 % <CR>
+" <Leader>r run python 
