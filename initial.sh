@@ -1,9 +1,4 @@
-ln -sf python-kdk-vim .vim  
 git submodule add -f https://github.com/gmarik/Vundle.vim.git bundle/Vundle.vim
-vim -c PluginInstall
-cd ./bundle/YouCompleteMe && ./install.py --clang-completer
-git add -A
-git commit -m 'initial'
 
 brew install sdcv 
 brew install Caskroom/cask/iterm2
@@ -16,4 +11,8 @@ ln -sf python-kdk-vim/bash_profile.mac .bash_profile
 ln -sF python-kdk-vim/stardict .stardict 
 cd -
 
+vim -c PluginInstall
+cd ./bundle/YouCompleteMe && ./install.py --clang-completer
+git add -A
+git commit -m 'initial'
 
