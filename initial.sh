@@ -4,7 +4,7 @@ brew install sdcv
 brew install Caskroom/cask/iterm2
 brew install bash-completion
 pip install powerline-status
-cd .. && ln -sF python-kdk-vim .vim 
+cd .. && rm .vim && ln -s python-kdk-vim .vim 
 ln -sf python-kdk-vim/python-vimrc .vimrc  
 ln -sf python-kdk-vim/bashrc-mac .bashrc 
 ln -sf python-kdk-vim/bash_profile.mac .bash_profile
